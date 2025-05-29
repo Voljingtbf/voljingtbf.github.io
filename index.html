@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mes Préférences</title>
+  <title>Mes Préférences - V2</title>
   <style>
     body {
       font-family: 'Comic Sans MS', cursive, sans-serif;
@@ -22,11 +22,12 @@
     }
     label {
       font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
     }
     input[type="text"] {
       width: 100%;
       padding: 8px;
-      margin-top: 5px;
       margin-bottom: 10px;
       border-radius: 5px;
       border: 1px solid #ccc;
@@ -55,25 +56,14 @@
 <body>
   <h1>🌟 Mes Préférences 🌟</h1>
 
-  <div class="section">
-    <label for="film">🎬 Mon film préféré :</label>
-    <input type="text" id="film" />
-  </div>
-
-  <div class="section">
-    <label for="livre">📚 Mon livre préféré :</label>
-    <input type="text" id="livre" />
-  </div>
-
-  <div class="section">
-    <label for="jeu">🎮 Mon jeu préféré :</label>
-    <input type="text" id="jeu" />
-  </div>
-
-  <div class="section">
-    <label for="matiere">📘 Ma matière préférée :</label>
-    <input type="text" id="matiere" />
-  </div>
+  <div class="section"><label for="film">🎬 Mon film préféré :</label><input type="text" id="film" /></div>
+  <div class="section"><label for="livre">📚 Mon livre préféré :</label><input type="text" id="livre" /></div>
+  <div class="section"><label for="jeu">🎮 Mon jeu vidéo préféré :</label><input type="text" id="jeu" /></div>
+  <div class="section"><label for="matiere">📘 Ma matière préférée :</label><input type="text" id="matiere" /></div>
+  <div class="section"><label for="parc">🎢 Mon parc d'attraction préféré :</label><input type="text" id="parc" /></div>
+  <div class="section"><label for="youtubeur">📺 Mon YouTubeur préféré :</label><input type="text" id="youtubeur" /></div>
+  <div class="section"><label for="heure">⏰ L’heure que je préfère pour les lives :</label><input type="text" id="heure" /></div>
+  <div class="section"><label for="animal">🐶 Mon animal préféré :</label><input type="text" id="animal" /></div>
 
   <button onclick="sauvegarder()">💾 Sauvegarder</button>
 
@@ -81,21 +71,30 @@
 
   <script>
     function sauvegarder() {
-      const film = document.getElementById('film').value;
-      const livre = document.getElementById('livre').value;
-      const jeu = document.getElementById('jeu').value;
-      const matiere = document.getElementById('matiere').value;
+      const data = {
+        film: document.getElementById('film').value,
+        livre: document.getElementById('livre').value,
+        jeu: document.getElementById('jeu').value,
+        matiere: document.getElementById('matiere').value,
+        parc: document.getElementById('parc').value,
+        youtubeur: document.getElementById('youtubeur').value,
+        heure: document.getElementById('heure').value,
+        animal: document.getElementById('animal').value
+      };
 
-      const data = { film, livre, jeu, matiere };
       localStorage.setItem('mesPrefs', JSON.stringify(data));
 
       document.getElementById('resultat').style.display = 'block';
       document.getElementById('resultat').innerHTML = `
-        ✅ Tes préférences ont été enregistrées !<br><br>
-        🎬 Film : ${film}<br>
-        📚 Livre : ${livre}<br>
-        🎮 Jeu : ${jeu}<br>
-        📘 Matière : ${matiere}
+        ✅ Tes préférences sont enregistrées !<br><br>
+        🎬 Film : ${data.film}<br>
+        📚 Livre : ${data.livre}<br>
+        🎮 Jeu vidéo : ${data.jeu}<br>
+        📘 Matière : ${data.matiere}<br>
+        🎢 Parc d'attraction : ${data.parc}<br>
+        📺 YouTubeur : ${data.youtubeur}<br>
+        ⏰ Heure préférée pour les lives : ${data.heure}<br>
+        🐶 Animal préféré : ${data.animal}
       `;
     }
 
@@ -106,6 +105,10 @@
         document.getElementById('livre').value = saved.livre || "";
         document.getElementById('jeu').value = saved.jeu || "";
         document.getElementById('matiere').value = saved.matiere || "";
+        document.getElementById('parc').value = saved.parc || "";
+        document.getElementById('youtubeur').value = saved.youtubeur || "";
+        document.getElementById('heure').value = saved.heure || "";
+        document.getElementById('animal').value = saved.animal || "";
       }
     };
   </script>
