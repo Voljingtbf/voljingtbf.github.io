@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mes trucs préférés</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #ff5722;
+    }
+    .category {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 15px 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .category h2 {
+      margin-top: 0;
+      color: #e91e63;
+    }
+    input, button {
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+    }
+    input {
+      width: 70%;
+      margin-right: 5px;
+    }
+    button {
+      background-color: #4caf50;
+      color: white;
+      cursor: pointer;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    li {
+      background-color: #f8bbd0;
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Mes trucs préférés 🎉</h1>
+
+  <div id="categories-container"></div>
+
+  <script>
+    const categories = [
+      "🎬 Films et Séries",
+      "📚 Livres",
+      "🧪 Matières scolaires",
+      "🎮 Jeux vidéo",
+      "🏸 Activités / Loisirs",
+      "🎵 Musique",
+      "🍔 Nourriture"
+    ];
+
+    const container = document.getElementById("categories-container");
+
+    categories.forEach(cat => {
+      const key = cat;
+
+      const div = document.createElement("div");
+      div.className = "category";
+
+      const title = document.createElement("h2");
+      title.textContent = cat;
+
+      const input = document.createElement("input");
+      input.placeholder = "Ajouter un truc que j’aime...";
+
+      const button = document.createElement("button");
+      button.textContent = "Ajouter";
+
+      const list = document.createElement("ul");
+
+      const savedItems = JSON.parse(localStorage.getItem(key)) || [];
+      savedItems.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        list.appendChild(li);
+      });
+
+      button.onclick = () => {
+        if (input.value.trim()) {
+          const li = document.createElement("li");
+          li.textContent = input.value;
+          list.appendChild(li);
+
+          const updatedItems = [...list.querySelectorAll("li")].map(li => li.textContent);
+          localStorage.setItem(key, JSON.stringify(updatedItems));
+          input.value = "";
+        }
+      };
+
+      div.appendChild(title);
+      div.appendChild(input);
+      div.appendChild(button);
+      div.appendChild(list);
+      container.appendChild(div);
+    });
+  </script>
+</body>
+</html>
