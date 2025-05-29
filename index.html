@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mes Préférences</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: linear-gradient(to right, #ffe4e1, #e0ffff);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #ff1493;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #ff69b4;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff1493;
+    }
+    .saved {
+      background-color: #f0fff0;
+      padding: 10px;
+      border: 1px dashed #90ee90;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌟 Mes Préférences 🌟</h1>
+
+  <div class="section">
+    <label for="film">🎬 Mon film préféré :</label>
+    <input type="text" id="film" />
+  </div>
+
+  <div class="section">
+    <label for="livre">📚 Mon livre préféré :</label>
+    <input type="text" id="livre" />
+  </div>
+
+  <div class="section">
+    <label for="jeu">🎮 Mon jeu préféré :</label>
+    <input type="text" id="jeu" />
+  </div>
+
+  <div class="section">
+    <label for="matiere">📘 Ma matière préférée :</label>
+    <input type="text" id="matiere" />
+  </div>
+
+  <button onclick="sauvegarder()">💾 Sauvegarder</button>
+
+  <div class="saved" id="resultat" style="display:none;"></div>
+
+  <script>
+    function sauvegarder() {
+      const film = document.getElementById('film').value;
+      const livre = document.getElementById('livre').value;
+      const jeu = document.getElementById('jeu').value;
+      const matiere = document.getElementById('matiere').value;
+
+      const data = { film, livre, jeu, matiere };
+      localStorage.setItem('mesPrefs', JSON.stringify(data));
+
+      document.getElementById('resultat').style.display = 'block';
+      document.getElementById('resultat').innerHTML = `
+        ✅ Tes préférences ont été enregistrées !<br><br>
+        🎬 Film : ${film}<br>
+        📚 Livre : ${livre}<br>
+        🎮 Jeu : ${jeu}<br>
+        📘 Matière : ${matiere}
+      `;
+    }
+
+    window.onload = () => {
+      const saved = JSON.parse(localStorage.getItem('mesPrefs'));
+      if (saved) {
+        document.getElementById('film').value = saved.film || "";
+        document.getElementById('livre').value = saved.livre || "";
+        document.getElementById('jeu').value = saved.jeu || "";
+        document.getElementById('matiere').value = saved.matiere || "";
+      }
+    };
+  </script>
+</body>
+</html>
